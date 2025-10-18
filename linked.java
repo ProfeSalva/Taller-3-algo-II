@@ -150,36 +150,69 @@ size = size + 1;
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("No implementada aun");
-    }
+        String elementos = "[";
+        Nodo actual = this.primero;
+        int j=0;
+        while (actual != null && j<this.size) {
+            if(j != this.size -1){
+                elementos = elementos + actual.valor + ", ";
+                actual = actual.proximo;
+                j = j+1;
+            }
+            else{
+                elementos = elementos + actual.valor + "]";
+                j = j+1;
+            }
+            
+            
+        }
+        return elementos;
+        }
 
-    public class ListaIterador{
-        private Nodo actual_iterador;
+     public class ListaIterador{
+        private Nodo antes_iterador;
+        private Nodo despues_iterador;
 
         public ListaIterador(){
-            actual_iterador = primero;
+            this.antes_iterador = null;
+            this.despues_iterador = primero;
         }
 
         public boolean haySiguiente() {
-            throw new UnsupportedOperationException("No implementada aun");
+            return despues_iterador != null;
         }
         
         public boolean hayAnterior() {
-            throw new UnsupportedOperationException("No implementada aun");
+             return antes_iterador != null;
         }
 
         public T siguiente() {
-            throw new UnsupportedOperationException("No implementada aun");
+            T valor = null;
+            if(haySiguiente()){
+                antes_iterador = despues_iterador;
+                despues_iterador = despues_iterador.proximo;
+                valor = antes_iterador.valor;
+            }
+            return valor;
         }
         
 
         public T anterior() {
-            throw new UnsupportedOperationException("No implementada aun");
+            T valor = null;
+             if(hayAnterior()){
+                despues_iterador = antes_iterador;
+                antes_iterador = antes_iterador.anterior;
+                valor = despues_iterador.valor;
+            }
+            return valor;
         }
     }
 
     public ListaIterador iterador() {
-        throw new UnsupportedOperationException("No implementada aun");
+        ListaIterador nuevoIterador = new ListaIterador();
+        nuevoIterador.antes_iterador = null;  
+        nuevoIterador.despues_iterador = primero;
+        return nuevoIterador;
     }
 
 }
